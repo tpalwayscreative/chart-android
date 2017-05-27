@@ -23,7 +23,7 @@ import co.tpcreative.portfolios.model.CPortfolios;
  */
 
 public class PortfoliosPresenter extends Presenter<PortfoliosView>{
-    
+
     private List<CObject> list ;
     private HashMap<String,List<CPortfolios>> monthsofYear ;
 
@@ -118,6 +118,7 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
             Log.d("action","Year : " + calendar2.get(Calendar.YEAR) );
         }
     }
+    
 
     public HashMap<Integer,String> getSpecificTime(String date){
         HashMap<Integer,String> hashMap = new HashMap<>();
