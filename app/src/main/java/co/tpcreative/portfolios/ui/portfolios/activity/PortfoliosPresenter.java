@@ -23,8 +23,7 @@ import co.tpcreative.portfolios.model.CPortfolios;
  */
 
 public class PortfoliosPresenter extends Presenter<PortfoliosView>{
-
-
+    
     private List<CObject> list ;
     private HashMap<String,List<CPortfolios>> monthsofYear ;
 
