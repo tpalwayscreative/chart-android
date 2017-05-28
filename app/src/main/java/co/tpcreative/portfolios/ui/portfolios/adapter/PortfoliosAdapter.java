@@ -52,6 +52,7 @@ public class PortfoliosAdapter extends  BaseAdapter<CObject, BaseHolder>{
             super.bind(data, position);
             this.object = data ;
             this.position = position ;
+            ivItem.setImageResource(getListIcon()[position]);
             tvItem.setText(data.portfolioId);
         }
 
@@ -69,6 +70,24 @@ public class PortfoliosAdapter extends  BaseAdapter<CObject, BaseHolder>{
 
     public interface ListenerPortfolios {
         void onItemClicked(int position);
+    }
+
+    public int[] getListIcon(){
+        int[] iconList = new int[]{
+                R.drawable.ic_1,
+                R.drawable.ic_2,
+                R.drawable.ic_3,
+                R.drawable.ic_4,
+                R.drawable.ic_5,
+                R.drawable.ic_6,
+                R.drawable.ic_7,
+                R.drawable.ic_8,
+                R.drawable.ic_9,
+                R.drawable.ic_10,
+                R.drawable.ic_10,
+                R.drawable.ic_10,
+        };
+        return iconList;
     }
 
 }

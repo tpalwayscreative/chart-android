@@ -2,6 +2,8 @@ package co.tpcreative.portfolios.model;
 
 import java.util.ArrayList;
 
+import co.tpcreative.portfolios.R;
+
 
 public class CObject {
 
@@ -21,6 +23,7 @@ public class CObject {
         this.portfolioId = portfolioId ;
         this.navs = navs ;
     }
+
 
 
 }

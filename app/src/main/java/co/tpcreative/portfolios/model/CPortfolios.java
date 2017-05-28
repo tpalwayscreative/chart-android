@@ -1,6 +1,11 @@
 package co.tpcreative.portfolios.model;
 
 
+import java.util.Arrays;
+import java.util.List;
+
+import co.tpcreative.portfolios.R;
+
 public class CPortfolios  {
 
     public String date ;
@@ -20,5 +25,7 @@ public class CPortfolios  {
         this.date = date ;
         this.amount = amount ;
     }
+
+
 
 }
