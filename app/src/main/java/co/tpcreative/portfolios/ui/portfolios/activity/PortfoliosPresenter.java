@@ -1,12 +1,10 @@
 package co.tpcreative.portfolios.ui.portfolios.activity;
 
 import android.util.Log;
-
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
-
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -22,7 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
 import co.tpcreative.portfolios.Constant;
 import co.tpcreative.portfolios.common.presenter.Presenter;
 import co.tpcreative.portfolios.model.CObject;
@@ -126,15 +123,10 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
 
     public void printTime(){
         for (CPortfolios index : getData().get(0).navs){
-
-            Log.d("action","Full date : " + index.date);
             Calendar calendar2 = Calendar.getInstance();
             DateTime date  = new DateTime();
             DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
             calendar2.setTime(date.parse(index.date,formatter).toDate());
-            Log.d("action","Day : " + (calendar2.get(Calendar.DAY_OF_MONTH ) > 9 ? calendar2.get(Calendar.DAY_OF_MONTH) : "0"+calendar2.get(Calendar.DAY_OF_MONTH )));
-            Log.d("action","Month : " + ((calendar2.get(Calendar.MONTH) + 1) > 9 ? (calendar2.get(Calendar.MONTH) + 1) : "0"+(calendar2.get(Calendar.MONTH) + 1)));
-            Log.d("action","Year : " + calendar2.get(Calendar.YEAR) );
         }
     }
 
@@ -231,9 +223,6 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
             ArrayList<BarEntry> group1 = new ArrayList<>();
             ArrayList<BarEntry> group2 = new ArrayList<>();
             ArrayList<BarEntry> group3 = new ArrayList<>();
-            HashMap<Integer,Float> hashMap1 = new HashMap<Integer, Float>();
-            HashMap<Integer,Float> hashMap2 = new HashMap<Integer, Float>();
-            HashMap<Integer,Float> hashMap3 = new HashMap<Integer, Float>();
             Map<Integer,BarEntry>hashMapB1 = new TreeMap<Integer, BarEntry>();
             Map<Integer,BarEntry>hashMapB2 = new TreeMap<Integer, BarEntry>();
             Map<Integer,BarEntry>hashMapB3 = new TreeMap<Integer, BarEntry>();
@@ -242,9 +231,6 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
                     for (CPortfolios in : index.navs) {
                         int month = in.monthOfYears;
                         float amount = Float.valueOf(in.amount) ;
-                        Log.d("action","month : " +month);
-                        Log.d("action","i : " +i);
-                        Log.d("action","in group : " +in.group);
                         if (in.group == 0) {
                             if (hashMapB1.get(month) != null){
                                 float previousAmount = hashMapB1.get(month).getVal();
@@ -558,15 +544,12 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
             }
 
             for (Map.Entry<Integer,BarEntry> bar : hashMapB1.entrySet()){
-                Log.d("actions","Result month 1: " + bar.getKey());
                 group1.add(bar.getValue());
             }
             for (Map.Entry<Integer,BarEntry> bar : hashMapB2.entrySet()){
-                Log.d("actions","Result month 2: " + bar.getKey());
                 group2.add(bar.getValue());
             }
             for (Map.Entry<Integer,BarEntry> bar : hashMapB3.entrySet()){
-                Log.d("actions","Result month 3: " + bar.getKey());
                 group3.add(bar.getValue());
             }
 

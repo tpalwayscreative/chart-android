@@ -2,12 +2,8 @@ package co.tpcreative.portfolios.ui.portfolios.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.LinearGradient;
-import android.graphics.RectF;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,13 +11,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import co.tpcreative.portfolios.R;
@@ -34,8 +27,6 @@ import co.tpcreative.portfolios.ui.portfolios.adapter.PortfoliosAdapter;
 
 public class PortfoliosActivity extends BaseActivity implements PortfoliosView,PortfoliosAdapter.ListenerPortfolios {
 
-    @BindView(R2.id.tvHello)
-    TextView tvHello ;
     @BindView(R2.id.rc_Item)
     RecyclerView recyclerView ;
     @BindView(R2.id.chart1)
@@ -47,11 +38,6 @@ public class PortfoliosActivity extends BaseActivity implements PortfoliosView,P
     private ProgressDialog mProgressDialog;
     private PortfoliosPresenter presenter ;
     private PortfoliosAdapter adapter ;
-
-    /* Chart */
-     String[] mMonths = new String[]{
-            "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +120,6 @@ public class PortfoliosActivity extends BaseActivity implements PortfoliosView,P
     @Override
     public void onItemClicked(int position) {
         try {
-            String months = presenter.getXAxisValues().get(position);
             if (presenter.getStatus() == 1 || presenter.getStatus() == 2) {
                 presenter.showGroupOfDays(position);
             }
