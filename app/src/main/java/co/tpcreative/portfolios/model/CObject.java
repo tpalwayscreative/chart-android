@@ -2,9 +2,6 @@ package co.tpcreative.portfolios.model;
 
 import java.util.ArrayList;
 
-/**
- * Created by Phong on 5/26/17.
- */
 
 public class CObject {
 

@@ -3,17 +3,14 @@ package co.tpcreative.portfolios.ui.portfolios.activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
-import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -105,11 +102,6 @@ public class PortfoliosActivity extends BaseActivity implements PortfoliosView,P
         adapter.setDataSource(list);
     }
 
-    @Override
-    public void onGetCardSuccess(@NonNull ArrayList<CObject> cPortfolios) {
-
-    }
-
     public void setupRecyclerView() {
         LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(llm);
@@ -121,6 +113,9 @@ public class PortfoliosActivity extends BaseActivity implements PortfoliosView,P
     public void onItemClicked(int position) {
         try {
             if (presenter.getStatus() == 1 || presenter.getStatus() == 2) {
+                presenter.showGroupOfDays(position);
+            }
+            else if(presenter.getStatus() == 3){
                 presenter.showGroupOfDays(position);
             }
         }

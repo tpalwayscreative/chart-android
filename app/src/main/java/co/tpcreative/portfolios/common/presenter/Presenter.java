@@ -8,9 +8,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.subscriptions.CompositeSubscription;
 
-/**
- * Created by Phong on 5/26/17.
- */
 
 public class Presenter<V> {
 

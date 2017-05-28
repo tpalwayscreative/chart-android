@@ -9,9 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by hdadmin 22/11/2016
- */
+
 public class BaseAdapter<V, VH extends BaseHolder> extends RecyclerView.Adapter<VH> {
 
     protected LayoutInflater inflater;

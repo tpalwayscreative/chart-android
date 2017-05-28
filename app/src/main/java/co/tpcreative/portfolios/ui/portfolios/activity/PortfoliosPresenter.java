@@ -28,9 +28,6 @@ import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-/**
- * Created by Phong on 5/26/17.
- */
 
 public class PortfoliosPresenter extends Presenter<PortfoliosView>{
 
@@ -262,18 +259,14 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
             }
 
             for (Map.Entry<Integer,BarEntry> bar : hashMapB1.entrySet()){
-                Log.d("actions","Result month 1: " + bar.getKey());
                 group1.add(bar.getValue());
             }
             for (Map.Entry<Integer,BarEntry> bar : hashMapB2.entrySet()){
-                Log.d("actions","Result month 2: " + bar.getKey());
                 group2.add(bar.getValue());
             }
             for (Map.Entry<Integer,BarEntry> bar : hashMapB3.entrySet()){
-                Log.d("actions","Result month 3: " + bar.getKey());
                 group3.add(bar.getValue());
             }
-
 
             BarDataSet barDataSet1 = new BarDataSet(group1, "Group 1");
             //barDataSet1.setColor(Color.rgb(0, 155, 0));
@@ -344,9 +337,6 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
                         int day = in.dayOfMonths;
                         float amount = Float.valueOf(in.amount) ;
                         if (month == months) {
-                            Log.d("action", "month : " + month);
-                            Log.d("action", "i : " + i);
-                            Log.d("action", "in group : " + in.group);
                             if (in.group == 0) {
                                 hashMapB1.put(day, new BarEntry(amount, day));
                             } else if (in.group == 1) {
@@ -361,15 +351,12 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
             }
 
             for (Map.Entry<Integer,BarEntry> bar : hashMapB1.entrySet()){
-                Log.d("actions","Result month 1: " + bar.getKey());
                 group1.add(bar.getValue());
             }
             for (Map.Entry<Integer,BarEntry> bar : hashMapB2.entrySet()){
-                Log.d("actions","Result month 2: " + bar.getKey());
                 group2.add(bar.getValue());
             }
             for (Map.Entry<Integer,BarEntry> bar : hashMapB3.entrySet()){
-                Log.d("actions","Result month 3: " + bar.getKey());
                 group3.add(bar.getValue());
             }
 
@@ -410,9 +397,6 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
             ArrayList<BarEntry> group1 = new ArrayList<>();
             ArrayList<BarEntry> group2 = new ArrayList<>();
             ArrayList<BarEntry> group3 = new ArrayList<>();
-            HashMap<Integer,Float> hashMap1 = new HashMap<Integer, Float>();
-            HashMap<Integer,Float> hashMap2 = new HashMap<Integer, Float>();
-            HashMap<Integer,Float> hashMap3 = new HashMap<Integer, Float>();
             Map<Integer,BarEntry>hashMapB1 = new TreeMap<Integer, BarEntry>();
             Map<Integer,BarEntry>hashMapB2 = new TreeMap<Integer, BarEntry>();
             Map<Integer,BarEntry>hashMapB3 = new TreeMap<Integer, BarEntry>();
@@ -422,9 +406,6 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
                         int month = in.monthOfYears;
                         float amount = Float.valueOf(in.amount) ;
                         int  quarterly = in.quarterly ;
-                        Log.d("action","month : " +month);
-                        Log.d("action","i : " +i);
-                        Log.d("action","in group : " +in.group);
                         if (in.group == 0) {
 
                             if (month >= 0 && month < 3) {

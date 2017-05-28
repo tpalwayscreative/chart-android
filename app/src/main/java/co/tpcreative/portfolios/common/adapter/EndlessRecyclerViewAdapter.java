@@ -12,10 +12,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import co.tpcreative.portfolios.R;
 
 
-/**
- * This is the recycler view adapter supported load more page
- * Created by hdadmin 22/11/2016
- */
 public class EndlessRecyclerViewAdapter extends RecyclerViewAdapterWrapper {
     public static final int TYPE_PENDING = 999;
     private final Context context;

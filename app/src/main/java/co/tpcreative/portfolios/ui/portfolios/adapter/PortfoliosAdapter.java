@@ -15,10 +15,6 @@ import co.tpcreative.portfolios.common.adapter.BaseAdapter;
 import co.tpcreative.portfolios.common.adapter.BaseHolder;
 import co.tpcreative.portfolios.model.CObject;
 
-/**
- * Created by Phong on 5/26/17.
- */
-
 public class PortfoliosAdapter extends  BaseAdapter<CObject, BaseHolder>{
 
 

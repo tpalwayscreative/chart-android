@@ -3,11 +3,7 @@ package co.tpcreative.portfolios.common.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-/**
- * This is the wrapper recycler view adapter supported load more page
- * <p>
- * Created by hdadmin 22/11/2016
- */
+
 public class RecyclerViewAdapterWrapper extends RecyclerView.Adapter {
 
     private final RecyclerView.Adapter wrapped;
