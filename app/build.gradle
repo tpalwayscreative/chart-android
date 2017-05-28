@@ -57,6 +57,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.+'
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'org.mockito:mockito-all:1.10.19'
     testCompile 'junit:junit:4.12'
     compile files('libs/joda-time-2.9.7.jar')
 }

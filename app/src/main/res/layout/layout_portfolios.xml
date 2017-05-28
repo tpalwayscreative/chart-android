@@ -22,8 +22,6 @@
             android:layout_marginBottom="130dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-
-
         <LinearLayout
             android:layout_alignParentBottom="true"
             android:id="@+id/llItem"

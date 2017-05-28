@@ -1,5 +1,4 @@
 package co.tpcreative.portfolios.ui.portfolios.activity;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
@@ -50,8 +49,6 @@ public class PortfoliosActivity extends BaseActivity implements PortfoliosView,P
                 presenter.loadJSONFromAsset();
             }
         }, 2000);
-
-
     }
 
     @OnClick(R.id.btnShowMonth)
@@ -150,7 +147,5 @@ public class PortfoliosActivity extends BaseActivity implements PortfoliosView,P
             presenter.unbindView();
         }
     }
-
-
 
 }
