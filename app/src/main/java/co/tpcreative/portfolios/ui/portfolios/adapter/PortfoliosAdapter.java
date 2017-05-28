@@ -56,7 +56,7 @@ public class PortfoliosAdapter extends  BaseAdapter<CObject, BaseHolder>{
             super.bind(data, position);
             this.object = data ;
             this.position = position ;
-            tvItem.setText(data.getPortfolioId());
+            tvItem.setText(data.portfolioId);
         }
 
         @OnClick(R.id.rlItem)

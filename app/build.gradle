@@ -50,7 +50,6 @@ dependencies {
     compile "com.android.support:design:$SUPPORT_LIBRARY_VERSION"
     compile "com.android.support:support-v4:$SUPPORT_LIBRARY_VERSION"
     compile "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
-    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'

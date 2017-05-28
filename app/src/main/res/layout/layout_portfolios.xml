@@ -19,12 +19,37 @@
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/chart1"
-            android:layout_marginBottom="100dp"
+            android:layout_marginBottom="140dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
+
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:id="@+id/llItem"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:layout_above="@+id/chart1"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="100dp"
+            android:layout_marginLeft="5dp"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:textColor="@color/colorAccent"
+                android:text="Show Months"
+                android:id="@+id/btnShowMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:text="Show Quarterly"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/btnShowQuarterly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     <android.support.v7.widget.RecyclerView
-        android:layout_above="@+id/chart1"
         android:orientation="horizontal"
         android:visibility="visible"
         android:layout_alignParentBottom="true"

@@ -8,11 +8,16 @@ import java.util.ArrayList;
 
 public class CObject {
 
-    private String portfolioId ;
-    private ArrayList<CPortfolios> navs ;
+    public String portfolioId ;
+    public ArrayList<CPortfolios> navs ;
+    public int position ;
 
     public CObject(){
 
+    }
+    public CObject(String portfolioId,int position){
+        this.portfolioId = portfolioId ;
+        this.position = position ;
     }
 
     public CObject(String portfolioId,ArrayList<CPortfolios> navs){
@@ -20,20 +25,5 @@ public class CObject {
         this.navs = navs ;
     }
 
-    public void setPortfolioId(String portfolioId){
-        this.portfolioId = portfolioId ;
-    }
-
-    public String getPortfolioId(){
-        return portfolioId ;
-    }
-
-    public void setNavs(ArrayList<CPortfolios>navs){
-        this.navs = navs ;
-    }
-
-    public ArrayList<CPortfolios> getNavs(){
-        return navs ;
-    }
 
 }

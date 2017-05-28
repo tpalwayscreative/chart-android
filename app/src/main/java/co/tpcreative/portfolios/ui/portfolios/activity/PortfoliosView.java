@@ -1,7 +1,10 @@
 package co.tpcreative.portfolios.ui.portfolios.activity;
 import android.support.annotation.NonNull;
 
+import com.github.mikephil.charting.data.BarData;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import co.tpcreative.portfolios.common.presenter.BaseView;
 import co.tpcreative.portfolios.model.CObject;
@@ -13,6 +16,9 @@ import co.tpcreative.portfolios.model.CPortfolios;
 
 public interface PortfoliosView  extends BaseView{
     void showError(String error);
-    void addCardSuccess(ArrayList<CObject> cPortfolios);
-    void getCardSuccess(@NonNull ArrayList<CObject> cPortfolios);
+    void onAddDataSuccess(List<CObject> cPortfolios, List<String> list);
+    void onGetCardSuccess(@NonNull ArrayList<CObject> cPortfolios);
+    void onUpdatedChartBar(BarData data);
+    void onAddMonth(List<CObject>list);
+    void onAddQuarterly(List<CObject>list);
 }

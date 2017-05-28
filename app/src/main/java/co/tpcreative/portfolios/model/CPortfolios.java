@@ -13,6 +13,7 @@ public class CPortfolios  {
     public int years ;
     public int quarterly ;
     public String id ;
+    public int group ;
 
     public CPortfolios(){
 
