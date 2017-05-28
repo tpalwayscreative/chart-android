@@ -21,4 +21,5 @@ public interface PortfoliosView  extends BaseView{
     void onUpdatedChartBar(BarData data);
     void onAddMonth(List<CObject>list);
     void onAddQuarterly(List<CObject>list);
+    void onAddDays(List<CObject>list);
 }

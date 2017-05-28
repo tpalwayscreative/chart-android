@@ -115,6 +115,11 @@ public class PortfoliosActivity extends BaseActivity implements PortfoliosView,P
     }
 
     @Override
+    public void onAddDays(List<CObject> list) {
+        adapter.setDataSource(list);
+    }
+
+    @Override
     public void onGetCardSuccess(@NonNull ArrayList<CObject> cPortfolios) {
 
     }
@@ -129,8 +134,8 @@ public class PortfoliosActivity extends BaseActivity implements PortfoliosView,P
     @Override
     public void onItemClicked(int position) {
         try {
-            //String months = presenter.getXAxisValues().get(position);
-            if (presenter.getStatus() == 2) {
+            String months = presenter.getXAxisValues().get(position);
+            if (presenter.getStatus() == 1 || presenter.getStatus() == 2) {
                 presenter.showGroupOfDays(position);
             }
         }

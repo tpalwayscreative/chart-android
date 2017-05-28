@@ -40,6 +40,7 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
     private List<CObject> list ;
     private List<CObject> listMonths ;
     private List<CObject> listQ ;
+    private List<CObject> listDays ;
     private HashMap<String,List<CPortfolios>> monthsofYear ;
     private int status = 0 ;
 
@@ -323,6 +324,14 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
        view().onAddMonth(listMonths);
     }
 
+    public void addDays(){
+        listDays = new ArrayList<>();
+        for (int i = 0 ; i < getXAxisValuesOfDay().size();i++){
+            listDays.add(new CObject(getXAxisValuesOfDay().get(i),i));
+        }
+        view().onAddDays(listDays);
+    }
+
     public void addQuarterly(){
         listQ = new ArrayList<>();
         for (int i = 0 ; i < getXAxisValuesOfQuarterly().size();i++){
@@ -432,7 +441,7 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
                         Log.d("action","in group : " +in.group);
                         if (in.group == 0) {
 
-                            if (month > 0 && month < 3) {
+                            if (month >= 0 && month < 3) {
                                 if (hashMapB1.get(0) != null){
                                     float previousAmount = hashMapB1.get(0).getVal();
                                     hashMapB1.get(0).setVal(previousAmount + amount);
@@ -441,7 +450,7 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
                                     hashMapB1.put(0,new BarEntry(amount, 0));
                                 }
                             }
-                            else if(month > 3 && month < 6){
+                            else if(month >= 3 && month < 6){
                                 if (hashMapB1.get(1) != null){
                                     float previousAmount = hashMapB1.get(1).getVal();
                                     hashMapB1.get(1).setVal(previousAmount + amount);
@@ -450,7 +459,7 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
                                     hashMapB1.put(1,new BarEntry(amount, 1));
                                 }
                             }
-                            else if(month > 6 && month < 9){
+                            else if(month >= 6 && month < 9){
                                 if (hashMapB1.get(2) != null){
                                     float previousAmount = hashMapB1.get(2).getVal();
                                     hashMapB1.get(2).setVal(previousAmount + amount);
@@ -470,7 +479,7 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
                             }
 
                         } else if (in.group == 1 ) {
-                            if (month > 0 && month < 3) {
+                            if (month >= 0 && month < 3) {
                                 if (hashMapB2.get(0) != null){
                                     float previousAmount = hashMapB2.get(0).getVal();
                                     hashMapB2.get(0).setVal(previousAmount + amount);
@@ -479,7 +488,7 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
                                     hashMapB2.put(0,new BarEntry(amount, 0));
                                 }
                             }
-                            else if(month > 3 && month < 6){
+                            else if(month >= 3 && month < 6){
                                 if (hashMapB2.get(1) != null){
                                     float previousAmount = hashMapB2.get(1).getVal();
                                     hashMapB2.get(1).setVal(previousAmount + amount);
@@ -488,7 +497,7 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
                                     hashMapB2.put(1,new BarEntry(amount, 1));
                                 }
                             }
-                            else if(month > 6 && month < 9){
+                            else if(month >= 6 && month < 9){
                                 if (hashMapB2.get(2) != null){
                                     float previousAmount = hashMapB2.get(2).getVal();
                                     hashMapB2.get(2).setVal(previousAmount + amount);
@@ -507,7 +516,7 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
                                 }
                             }
                         } else {
-                            if (month > 0 && month < 3) {
+                            if (month >= 0 && month < 3) {
                                 if (hashMapB3.get(0) != null){
                                     float previousAmount = hashMapB3.get(0).getVal();
                                     hashMapB3.get(0).setVal(previousAmount + amount);
@@ -516,7 +525,7 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
                                     hashMapB3.put(0,new BarEntry(amount, 0));
                                 }
                             }
-                            else if(month > 3 && month < 6){
+                            else if(month >= 3 && month < 6){
                                 if (hashMapB3.get(1) != null){
                                     float previousAmount = hashMapB3.get(1).getVal();
                                     hashMapB3.get(1).setVal(previousAmount + amount);
@@ -525,7 +534,7 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
                                     hashMapB3.put(1,new BarEntry(amount, 1));
                                 }
                             }
-                            else if(month > 6 && month < 9){
+                            else if(month >= 6 && month < 9){
                                 if (hashMapB3.get(2) != null){
                                     float previousAmount = hashMapB3.get(2).getVal();
                                     hashMapB3.get(2).setVal(previousAmount + amount);
@@ -577,7 +586,7 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
             dataSets.add(barDataSet2);
             dataSets.add(barDataSet3);
 
-            BarData data = new BarData(getXAxisValues(), dataSets);
+            BarData data = new BarData(getXAxisValuesOfQuarterly(), dataSets);
             subscriber.onNext(data);
             subscriber.onCompleted();
         }).observeOn(AndroidSchedulers.mainThread())
