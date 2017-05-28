@@ -10,11 +10,14 @@ import android.view.View;
 import android.widget.Button;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import co.tpcreative.portfolios.R;
-import co.tpcreative.portfolios.R2;
 import co.tpcreative.portfolios.common.activity.BaseActivity;
 import co.tpcreative.portfolios.common.dialog.DialogFactory;
 import co.tpcreative.portfolios.model.CObject;
@@ -23,17 +26,18 @@ import co.tpcreative.portfolios.ui.portfolios.adapter.PortfoliosAdapter;
 
 public class PortfoliosActivity extends BaseActivity implements PortfoliosView,PortfoliosAdapter.ListenerPortfolios {
 
-    @BindView(R2.id.rc_Item)
+    @BindView(R.id.rc_Item)
     RecyclerView recyclerView ;
-    @BindView(R2.id.chart1)
+    @BindView(R.id.chart1)
     BarChart mChart ;
-    @BindView(R2.id.btnShowMonth)
+    @BindView(R.id.btnShowMonth)
     Button btnShowMonth ;
-    @BindView(R2.id.btnShowQuarterly)
+    @BindView(R.id.btnShowQuarterly)
     Button btnShowQuarterly ;
     private ProgressDialog mProgressDialog;
     private PortfoliosPresenter presenter ;
     private PortfoliosAdapter adapter ;
+    private int mStatus = 0 ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +72,7 @@ public class PortfoliosActivity extends BaseActivity implements PortfoliosView,P
 
     @Override
     public void onUpdatedChartBar(BarData data) {
+        mChart.setVisibility(View.VISIBLE);
         mChart.setData(data);
         mChart.setDescription("");
         mChart.animateXY(2000, 2000);
@@ -79,6 +84,22 @@ public class PortfoliosActivity extends BaseActivity implements PortfoliosView,P
         adapter.setDataSource(cPortfolios);
         presenter.showGroupOfMonths();
         presenter.addMonth();
+    }
+
+    @Override
+    public void onSaveDataToFirebase(List<CObject>list) {
+        DatabaseReference myRef1 = FirebaseDatabase.getInstance().getReference(); //Getting root reference
+        myRef1.setValue(list, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if (databaseError != null){
+                    Log.d("action","Error occurred :" + databaseError.getMessage());
+                }
+                else{
+                    Log.d("action","Sent data to Firebase successfully");
+                }
+            }
+        });
     }
 
     @Override
@@ -106,12 +127,17 @@ public class PortfoliosActivity extends BaseActivity implements PortfoliosView,P
     }
 
     @Override
+    public void onGetStatus(int position) {
+         this.mStatus = position ;
+    }
+
+    @Override
     public void onItemClicked(int position) {
         try {
-            if (presenter.getStatus() == 1 || presenter.getStatus() == 2) {
+            if (mStatus == 1 || mStatus == 2) {
                 presenter.showGroupOfDays(position);
             }
-            else if(presenter.getStatus() == 3){
+            else if(mStatus == 3){
                 presenter.showGroupOfDays(position);
             }
         }

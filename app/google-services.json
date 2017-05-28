@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1054814037601",
+    "firebase_url": "https://android-chart-65b16.firebaseio.com",
+    "project_id": "android-chart-65b16",
+    "storage_bucket": "android-chart-65b16.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1054814037601:android:9cfae7d2337ac6f9",
+        "android_client_info": {
+          "package_name": "co.tpcreative.portfolios"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1054814037601-v4smkvk5qppr66rut8meh01agi9h5jcm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXbYd1hynPidjOHSv_Z6BJbB2sBsecWcs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -18,4 +18,7 @@ public interface PortfoliosView  extends BaseView{
     void onAddMonth(List<CObject>list);
     void onAddQuarterly(List<CObject>list);
     void onAddDays(List<CObject>list);
+    void onGetStatus(int position);
+    void onSaveDataToFirebase(List<CObject>list);
+
 }

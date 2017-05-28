@@ -10,7 +10,6 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import co.tpcreative.portfolios.R;
-import co.tpcreative.portfolios.R2;
 import co.tpcreative.portfolios.common.adapter.BaseAdapter;
 import co.tpcreative.portfolios.common.adapter.BaseHolder;
 import co.tpcreative.portfolios.model.CObject;
@@ -34,11 +33,11 @@ public class PortfoliosAdapter extends  BaseAdapter<CObject, BaseHolder>{
 
     public class PortfoliosHolder extends BaseHolder<CObject>  {
 
-        @BindView(R2.id.rlItem)
+        @BindView(R.id.rlItem)
         RelativeLayout rlItem ;
-        @BindView(R2.id.ivItem)
+        @BindView(R.id.ivItem)
         ImageView ivItem ;
-        @BindView(R2.id.tvItem)
+        @BindView(R.id.tvItem)
         TextView tvItem ;
 
         private CObject object ;

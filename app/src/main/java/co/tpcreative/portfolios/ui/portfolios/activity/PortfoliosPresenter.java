@@ -1,6 +1,4 @@
 package co.tpcreative.portfolios.ui.portfolios.activity;
-
-import android.util.Log;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -36,11 +34,11 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
     private List<CObject> listQ ;
     private List<CObject> listDays ;
     private HashMap<String,List<CPortfolios>> monthsofYear ;
-    private int status = 0 ;
 
     public PortfoliosPresenter(){
         list = new ArrayList<>();
         monthsofYear = new HashMap<>();
+
     }
 
     public void loadJSONFromAsset() {
@@ -60,7 +58,10 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
             return ;
         }
         try {
+
             JSONArray array = new JSONArray(json);
+
+
             for (int i = 0; i < array.length(); i++) {
                 JSONObject jsonObject = array.getJSONObject(i);
                 String portfolioId = jsonObject.getString(Constant.TAG_PORTFOLOOID);
@@ -111,9 +112,10 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
                 list = new ArrayList<>();
                 list.addAll(locList);
                 view.onAddDataSuccess(locList,getXAxisValues());
+                view.onSaveDataToFirebase(list);
+
             }
         }
-
     }
 
 
@@ -288,7 +290,7 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
         }).observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.computation())
         .subscribe(data ->{
-            status = 1 ;
+            view.onGetStatus(1);
             view.hideLoading();
             view.onUpdatedChartBar((BarData)data);
         });
@@ -381,7 +383,7 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
         }).observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.computation())
                 .subscribe(data ->{
-                    status = 2 ;
+                    view.onGetStatus(2);
                     view.hideLoading();
                     view.onUpdatedChartBar((BarData)data);
                 });
@@ -555,7 +557,7 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
         }).observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.computation())
                 .subscribe(data ->{
-                    status = 3 ;
+                    view.onGetStatus(3);
                     view.hideLoading();
                     view.onUpdatedChartBar((BarData)data);
                 });
@@ -583,11 +585,6 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
         };
         return Arrays.asList(mDays);
     }
-
-    public int getStatus(){
-        return status ;
-    }
-
 
 
     public List<CObject> getData(){
