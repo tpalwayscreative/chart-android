@@ -75,7 +75,7 @@ public class PortfoliosActivity extends BaseActivity implements PortfoliosView,P
     @Override
     public void onUpdatedChartBar(BarData data) {
         mChart.setData(data);
-        mChart.setDescription("My Grouped Bar Chart");
+        mChart.setDescription("");
         mChart.animateXY(2000, 2000);
         mChart.invalidate();
     }
