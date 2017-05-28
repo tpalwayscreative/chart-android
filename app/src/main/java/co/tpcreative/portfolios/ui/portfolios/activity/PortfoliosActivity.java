@@ -79,7 +79,6 @@ public class PortfoliosActivity extends BaseActivity implements PortfoliosView,P
 
     @Override
     public void onAddDataSuccess(List<CObject> cPortfolios, List<String> list) {
-        Log.d("action","Size : " + cPortfolios.size());
         adapter.setDataSource(cPortfolios);
         presenter.showGroupOfMonths();
         presenter.addMonth();

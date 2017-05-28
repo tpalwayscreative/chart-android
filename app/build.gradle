@@ -31,9 +31,6 @@ android {
         incremental true
         javaMaxHeapSize "4g" //specify the heap size for the dex process
     }
-
-
-
 }
 
 

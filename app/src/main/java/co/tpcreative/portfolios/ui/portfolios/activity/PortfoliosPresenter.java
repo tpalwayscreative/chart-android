@@ -70,7 +70,6 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
                     JSONObject subJsonObject = subArray.getJSONObject(j);
                     String date = subJsonObject.getString(Constant.TAG_DATE) ;
                     String amount = subJsonObject.getString(Constant.TAG_AMOUNT).toString().trim() ;
-                    Log.d("action","Id : "+portfolioId + " j : " + j);
                     CPortfolios cPortfolios = new CPortfolios();
                     if (amount != null && !amount.equals("null")){
                          cPortfolios = new CPortfolios(date,amount);

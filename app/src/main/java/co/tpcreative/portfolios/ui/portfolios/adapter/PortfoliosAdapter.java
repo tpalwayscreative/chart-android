@@ -84,8 +84,8 @@ public class PortfoliosAdapter extends  BaseAdapter<CObject, BaseHolder>{
                 R.drawable.ic_8,
                 R.drawable.ic_9,
                 R.drawable.ic_10,
-                R.drawable.ic_10,
-                R.drawable.ic_10,
+                R.drawable.ic_11,
+                R.drawable.ic_12,
         };
         return iconList;
     }

@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimarys">#3C9BF7</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryDark">#3C9BF7</color>
+    <color name="color_purple">#9013FE</color>
+    <color name="color_purple_opacity">#669013fe</color>
+    <color name="color_purple_opacity_circle">#4D9200FD</color>
+    <color name="color_blue_opacity_circle">#4D3C9BF7</color>
+    <color name="bg_tab_group">#FDF6FF</color>
+    <color name="color_gray_settle_transaction">#a7a7a7</color>
+    <color name="color_gray_settle_info_tab_setting">#a7a7a7</color>
+    <color name="color_item_button">#FF9900</color>
 </resources>
