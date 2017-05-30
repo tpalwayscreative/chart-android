@@ -6,7 +6,6 @@ import java.util.List;
 public class CData {
 
     public List<CObject> data ;
-
     public CData(){
 
     }
