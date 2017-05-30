@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import java.util.ArrayList;
@@ -24,8 +25,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-
-
 @RunWith(MockitoJUnitRunner.class)
 public class PortfoliosActivityTest {
 
@@ -34,32 +33,38 @@ public class PortfoliosActivityTest {
     @Mock
     private PortfoliosPresenter presenter ;
 
+
     @Before
     public void setUp() throws Exception {
-
         presenter = new PortfoliosPresenter(view);
+        presenter.bindView(view);
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
     public void testData() throws Exception {
         when(presenter.getData()).thenReturn(list());
-        when(presenter.getListMonths()).thenReturn(list());
     }
 
     @Test
-    public void testMonths() throws Exception{
+    public void testMonths() throws Exception {
         when(presenter.getListMonths()).thenReturn(list());
+        when(presenter.getBarData()).thenReturn(simpleTest());
+        presenter.showGroupOfMonths();
     }
 
     @Test
     public void testDays() throws Exception {
         when(presenter.getListDays()).thenReturn(list());
+        when(presenter.getBarData()).thenReturn(simpleTest());
+        presenter.showGroupOfDays(1);
     }
 
     @Test
     public void testQ(){
         when(presenter.getListQ()).thenReturn(list());
+        when(presenter.getBarData()).thenReturn(simpleTest());
+        presenter.showGroupOfquarterly();
     }
 
     public List<CObject> list(){
@@ -135,6 +140,5 @@ public class PortfoliosActivityTest {
         labels.add("JUN");
         return labels;
     }
-
 
 }

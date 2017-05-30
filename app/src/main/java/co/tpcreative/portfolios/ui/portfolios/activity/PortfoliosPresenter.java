@@ -3,7 +3,6 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
 import android.view.View;
-
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -29,7 +28,6 @@ import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-
 public class PortfoliosPresenter extends Presenter<PortfoliosView>{
 
     private List<CObject> list ;
@@ -39,15 +37,13 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
     private BarData barData ;
     private HashMap<String,List<CPortfolios>> monthsofYear ;
     public static final String TAG = "PortfoliosPresenter";
-    private String path ;
-    private PortfoliosView view ;
     public PortfoliosPresenter(){
         list = new ArrayList<>();
         monthsofYear = new HashMap<>();
     }
 
-    public PortfoliosPresenter(PortfoliosView context){
-        this.view = context ;
+    public PortfoliosPresenter(PortfoliosView view){
+
         list = new ArrayList<>();
         monthsofYear = new HashMap<>();
     }
@@ -173,10 +169,8 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
             //barDataSet1.setColor(Color.rgb(0, 155, 0));
             barDataSet1.setColor(ColorTemplate.JOYFUL_COLORS[0]);
 
-
             BarDataSet barDataSet2 = new BarDataSet(group2, "Group 2");
             barDataSet2.setColor(ColorTemplate.JOYFUL_COLORS[1]);
-
 
             BarDataSet barDataSet3 = new BarDataSet(group3, "Group 3");
             barDataSet3.setColor(ColorTemplate.JOYFUL_COLORS[2]);
@@ -464,8 +458,6 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
                 });
     }
 
-
-
     public List<String> getXAxisValues() {
         String[] mMonths = new String[]{
                 "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -486,7 +478,6 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
         };
         return Arrays.asList(mDays);
     }
-
 
     public List<CObject> getData(){
         return list ;
@@ -557,7 +548,5 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
             view.onAddDataSuccess(list);
         }
     }
-
-
 
 }
