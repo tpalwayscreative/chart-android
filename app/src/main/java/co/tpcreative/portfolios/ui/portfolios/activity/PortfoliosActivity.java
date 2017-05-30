@@ -8,21 +8,20 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import co.tpcreative.portfolios.R;
 import co.tpcreative.portfolios.common.activity.BaseActivity;
 import co.tpcreative.portfolios.common.dialog.DialogFactory;
+import co.tpcreative.portfolios.common.utils.NetworkUtils;
+import co.tpcreative.portfolios.firebase.Firebase;
+import co.tpcreative.portfolios.model.CData;
 import co.tpcreative.portfolios.model.CObject;
 import co.tpcreative.portfolios.ui.portfolios.adapter.PortfoliosAdapter;
-
 
 public class PortfoliosActivity extends BaseActivity implements PortfoliosView,PortfoliosAdapter.ListenerPortfolios {
 
@@ -47,12 +46,29 @@ public class PortfoliosActivity extends BaseActivity implements PortfoliosView,P
         presenter = new PortfoliosPresenter();
         presenter.bindView(this);
         setupRecyclerView();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                presenter.loadJSONFromAsset();
-            }
-        }, 2000);
+        if (!NetworkUtils.pingIpAddress(getContext())){
+          showLoading();
+          Firebase firebase = Firebase.getInstance(new Firebase.ListenerFirebase() {
+                @Override
+                public void onSuccess(CData cData) {
+                    if (cData != null){
+                        presenter.setData(cData.data);
+                        presenter.onLoadingData();
+                        hideLoading();
+                    }
+                }
+                @Override
+                public void onError(String error) {
+                    Toast.makeText(getApplicationContext(),error,Toast.LENGTH_SHORT).show();
+                    hideLoading();
+                }
+            });
+            firebase.getJsonFromServer();
+        }
+        else{
+            presenter.loadJSONFromAsset();
+            hideLoading();
+        }
     }
 
     @OnClick(R.id.btnShowMonth)
@@ -80,26 +96,10 @@ public class PortfoliosActivity extends BaseActivity implements PortfoliosView,P
     }
 
     @Override
-    public void onAddDataSuccess(List<CObject> cPortfolios, List<String> list) {
+    public void onAddDataSuccess(List<CObject> cPortfolios) {
         adapter.setDataSource(cPortfolios);
         presenter.showGroupOfMonths();
         presenter.addMonth();
-    }
-
-    @Override
-    public void onSaveDataToFirebase(List<CObject>list) {
-        DatabaseReference myRef1 = FirebaseDatabase.getInstance().getReference(); //Getting root reference
-        myRef1.setValue(list, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                if (databaseError != null){
-                    Log.d("action","Error occurred :" + databaseError.getMessage());
-                }
-                else{
-                    Log.d("action","Sent data to Firebase successfully");
-                }
-            }
-        });
     }
 
     @Override

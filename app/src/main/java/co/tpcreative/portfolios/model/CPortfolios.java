@@ -1,21 +1,15 @@
 package co.tpcreative.portfolios.model;
-
+import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.Arrays;
 import java.util.List;
 
 import co.tpcreative.portfolios.R;
-
-public class CPortfolios  {
+@IgnoreExtraProperties
+public class CPortfolios extends CDate {
 
     public String date ;
     public String amount ;
-    public int dayOfMonths ;
-    public int monthOfYears ;
-    public int years ;
-    public int quarterly ;
-    public String id ;
-    public int group ;
 
     public CPortfolios(){
 
@@ -25,7 +19,5 @@ public class CPortfolios  {
         this.date = date ;
         this.amount = amount ;
     }
-
-
 
 }
