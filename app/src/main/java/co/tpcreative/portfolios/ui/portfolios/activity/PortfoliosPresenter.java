@@ -43,7 +43,6 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
     }
 
     public PortfoliosPresenter(PortfoliosView view){
-
         list = new ArrayList<>();
         monthsofYear = new HashMap<>();
     }

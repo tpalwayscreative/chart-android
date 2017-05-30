@@ -61,7 +61,7 @@ public class PortfoliosActivityTest {
     }
 
     @Test
-    public void testQ(){
+    public void testQuarterly(){
         when(presenter.getListQ()).thenReturn(list());
         when(presenter.getBarData()).thenReturn(simpleTest());
         presenter.showGroupOfquarterly();
