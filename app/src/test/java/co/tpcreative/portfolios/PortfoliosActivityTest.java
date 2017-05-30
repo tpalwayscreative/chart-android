@@ -1,28 +1,18 @@
 package co.tpcreative.portfolios;
-
-import android.content.Context;
-import android.content.res.AssetManager;
-
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
 import co.tpcreative.portfolios.common.presenter.Presenter;
 import co.tpcreative.portfolios.model.CData;
 import co.tpcreative.portfolios.model.CObject;
@@ -30,7 +20,6 @@ import co.tpcreative.portfolios.model.CPortfolios;
 import co.tpcreative.portfolios.ui.portfolios.activity.PortfoliosActivity;
 import co.tpcreative.portfolios.ui.portfolios.activity.PortfoliosPresenter;
 import co.tpcreative.portfolios.ui.portfolios.activity.PortfoliosView;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -53,8 +42,24 @@ public class PortfoliosActivityTest {
     }
 
     @Test
-    public void testMock() throws Exception {
+    public void testData() throws Exception {
         when(presenter.getData()).thenReturn(list());
+        when(presenter.getListMonths()).thenReturn(list());
+    }
+
+    @Test
+    public void testMonths() throws Exception{
+        when(presenter.getListMonths()).thenReturn(list());
+    }
+
+    @Test
+    public void testDays() throws Exception {
+        when(presenter.getListDays()).thenReturn(list());
+    }
+
+    @Test
+    public void testQ(){
+        when(presenter.getListQ()).thenReturn(list());
     }
 
     public List<CObject> list(){
@@ -130,5 +135,6 @@ public class PortfoliosActivityTest {
         labels.add("JUN");
         return labels;
     }
+
 
 }

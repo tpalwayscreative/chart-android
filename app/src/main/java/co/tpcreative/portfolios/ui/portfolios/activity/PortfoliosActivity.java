@@ -46,8 +46,8 @@ public class PortfoliosActivity extends BaseActivity implements PortfoliosView,P
         presenter = new PortfoliosPresenter();
         presenter.bindView(this);
         setupRecyclerView();
+        showLoading();
         if (!NetworkUtils.pingIpAddress(getContext())){
-          showLoading();
           Firebase firebase = Firebase.getInstance(new Firebase.ListenerFirebase() {
                 @Override
                 public void onSuccess(CData cData) {

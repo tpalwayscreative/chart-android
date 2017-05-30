@@ -503,6 +503,22 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
         this.listMonths = listMonths ;
     }
 
+    public List<CObject> getListDays(){
+        return listDays ;
+    }
+
+    public void setListDays(List<CObject>listDays){
+        this.listDays = listDays ;
+    }
+
+    public List<CObject> getListQ(){
+        return  listQ;
+    }
+
+    public void setListQ(List<CObject>listQ){
+        this.listQ = listQ ;
+    }
+
     public BarData getBarData(){
         return barData;
     }
