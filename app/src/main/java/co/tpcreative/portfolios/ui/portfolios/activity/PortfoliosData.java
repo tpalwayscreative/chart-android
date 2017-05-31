@@ -6,7 +6,7 @@ import co.tpcreative.portfolios.model.CObject;
 
 
 public class PortfoliosData {
-    private List<CObject> list ;
+    private List<CObject> listData ;
     private BarData barData ;
     public List<String> getXAxisValuesMonth() {
         String[] mMonths = new String[]{
@@ -30,10 +30,10 @@ public class PortfoliosData {
     }
 
     public List<CObject> getData(){
-        return list ;
+        return listData ;
     }
-    public void setData(List<CObject>list){
-        this.list = list ;
+    public void setData(List<CObject>listData){
+        this.listData = listData ;
     }
     public BarData getBarData(){
         return barData;

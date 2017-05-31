@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.Toast;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
+import com.google.gson.Gson;
+
 import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -54,6 +56,8 @@ public class PortfoliosActivity extends BaseActivity implements PortfoliosView,P
                 @Override
                 public void onSuccess(CData cData) {
                     if (cData != null){
+                        Gson g = new Gson();
+                        Log.d("action",g.toJson(cData));
                         portfoliosData.setData(cData.data);
                         presenter.onLoadingData();
                         hideLoading();

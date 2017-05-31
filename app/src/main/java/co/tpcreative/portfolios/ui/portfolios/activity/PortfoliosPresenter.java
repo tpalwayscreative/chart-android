@@ -25,9 +25,6 @@ import co.tpcreative.portfolios.common.utils.Utils;
 import co.tpcreative.portfolios.model.CData;
 import co.tpcreative.portfolios.model.CObject;
 import co.tpcreative.portfolios.model.CPortfolios;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class PortfoliosPresenter extends Presenter<PortfoliosView>{
 
