@@ -52,12 +52,11 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
     }
 
     public void loadJSONFromAsset() {
-        final PortfoliosView view = view();
-        ArrayList<CObject> locList = new ArrayList<>();
+        checkViewAttached();
         String json = null;
         InputStream is  = null ;
         try {
-            is = view.getContext().getAssets().open("data_json.json");
+            is = view().getContext().getAssets().open("data_json.json");
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
@@ -94,7 +93,7 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
                     }
                     list.addAll(data.data);
                     portfoliosData.setData(list);
-                    view.onAddDataSuccess(locList);
+                    view().onAddDataSuccess(list);
                 }
             }
         }
