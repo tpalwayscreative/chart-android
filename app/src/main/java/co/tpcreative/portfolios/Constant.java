@@ -1,9 +1,5 @@
 package co.tpcreative.portfolios;
 
-/**
- * Created by Phong on 5/26/17.
- */
-
 public class Constant {
 
     public static final String TAG_DATE = "date";

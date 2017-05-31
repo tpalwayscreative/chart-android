@@ -1,5 +1,4 @@
 package co.tpcreative.portfolios.model;
-
 import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties

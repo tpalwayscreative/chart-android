@@ -3,7 +3,6 @@ package co.tpcreative.portfolios.common.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-
 public class RecyclerViewAdapterWrapper extends RecyclerView.Adapter {
 
     private final RecyclerView.Adapter wrapped;
