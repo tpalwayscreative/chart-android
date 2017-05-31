@@ -13,7 +13,6 @@ import co.tpcreative.portfolios.model.CPortfolios;
 
 
 public interface PortfoliosView  extends BaseView{
-    void showError(String error);
     void onAddDataSuccess(List<CObject> cPortfolios);
     void onUpdatedChartBar(BarData data);
     void onAddMonth(List<CObject>list);

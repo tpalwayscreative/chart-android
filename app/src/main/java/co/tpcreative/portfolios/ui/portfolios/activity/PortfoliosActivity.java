@@ -22,6 +22,7 @@ import co.tpcreative.portfolios.firebase.Firebase;
 import co.tpcreative.portfolios.model.CData;
 import co.tpcreative.portfolios.model.CObject;
 import co.tpcreative.portfolios.ui.portfolios.adapter.PortfoliosAdapter;
+import rx.Observable;
 
 public class PortfoliosActivity extends BaseActivity implements PortfoliosView,PortfoliosAdapter.ListenerPortfolios {
 
@@ -37,13 +38,14 @@ public class PortfoliosActivity extends BaseActivity implements PortfoliosView,P
     private PortfoliosPresenter presenter ;
     private PortfoliosAdapter adapter ;
     private int mStatus = 0 ;
-
+    private PortfoliosData portfoliosData ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_portfolios);
         DialogFactory.isStoragePermissionGranted(this);
-        presenter = new PortfoliosPresenter();
+        portfoliosData = new PortfoliosData();
+        presenter = new PortfoliosPresenter(portfoliosData);
         presenter.bindView(this);
         setupRecyclerView();
         showLoading();
@@ -52,7 +54,7 @@ public class PortfoliosActivity extends BaseActivity implements PortfoliosView,P
                 @Override
                 public void onSuccess(CData cData) {
                     if (cData != null){
-                        presenter.setData(cData.data);
+                        portfoliosData.setData(cData.data);
                         presenter.onLoadingData();
                         hideLoading();
                     }
@@ -81,10 +83,6 @@ public class PortfoliosActivity extends BaseActivity implements PortfoliosView,P
         presenter.addQuarterly();
     }
 
-    @Override
-    public void showError(String error) {
-
-    }
 
     @Override
     public void onUpdatedChartBar(BarData data) {

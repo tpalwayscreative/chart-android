@@ -1,6 +1,7 @@
 package co.tpcreative.portfolios.ui.portfolios.activity;
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import com.github.mikephil.charting.data.BarData;
@@ -37,14 +38,17 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
     private BarData barData ;
     private HashMap<String,List<CPortfolios>> monthsofYear ;
     public static final String TAG = "PortfoliosPresenter";
-    public PortfoliosPresenter(){
+    private PortfoliosData portfoliosData ;
+
+    public PortfoliosPresenter(PortfoliosData portfoliosData){
         list = new ArrayList<>();
         monthsofYear = new HashMap<>();
+        this.portfoliosData = portfoliosData ;
     }
 
-    public PortfoliosPresenter(PortfoliosView view){
-        list = new ArrayList<>();
-        monthsofYear = new HashMap<>();
+    @Override
+    public void bindView(@NonNull PortfoliosView view) {
+        super.bindView(view);
     }
 
     public void loadJSONFromAsset() {
@@ -89,6 +93,7 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
                         i++;
                     }
                     list.addAll(data.data);
+                    portfoliosData.setData(list);
                     view.onAddDataSuccess(locList);
                 }
             }
@@ -110,17 +115,16 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
     }
 
     public void showGroupOfMonths(){
-        final PortfoliosView view = view();
-        view.showLoading();
-        Observable.create(subscriber -> {
+        checkViewAttached();
+        view().showLoading();
             ArrayList<BarEntry> group1 = new ArrayList<>();
             ArrayList<BarEntry> group2 = new ArrayList<>();
             ArrayList<BarEntry> group3 = new ArrayList<>();
             Map<Integer,BarEntry>hashMapB1 = new TreeMap<Integer, BarEntry>();
             Map<Integer,BarEntry>hashMapB2 = new TreeMap<Integer, BarEntry>();
             Map<Integer,BarEntry>hashMapB3 = new TreeMap<Integer, BarEntry>();
-            for (int i = 0 ; i < getXAxisValues().size();i++) {
-                for (CObject index : list) {
+            for (int i = 0 ; i < portfoliosData.getXAxisValuesMonth().size();i++) {
+                for (CObject index : portfoliosData.getData()) {
                     for (CPortfolios in : index.navs) {
                         int month = in.monthOfYears;
                         float amount = Float.valueOf(in.amount) ;
@@ -179,55 +183,48 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
             dataSets.add(barDataSet2);
             dataSets.add(barDataSet3);
 
-            BarData data = new BarData(getXAxisValues(), dataSets);
-            subscriber.onNext(data);
-            subscriber.onCompleted();
-        }).observeOn(AndroidSchedulers.mainThread())
-        .subscribeOn(Schedulers.computation())
-        .subscribe(data ->{
-            view.onGetStatus(1);
-            view.hideLoading();
-            setBarData((BarData)data);
-            view.onUpdatedChartBar((BarData)data);
-        });
+            portfoliosData.setBarData(new BarData(portfoliosData.getXAxisValuesMonth(), dataSets));
+            view().onGetStatus(1);
+            view().hideLoading();
+            view().onUpdatedChartBar(portfoliosData.getBarData());
+
     }
 
     public void addMonth(){
         listMonths = new ArrayList<>();
-       for (int i = 0 ; i < getXAxisValues().size();i++){
-           listMonths.add(new CObject(getXAxisValues().get(i)));
+       for (int i = 0 ; i < portfoliosData.getXAxisValuesMonth().size();i++){
+           listMonths.add(new CObject(portfoliosData.getXAxisValuesMonth().get(i)));
        }
        view().onAddMonth(listMonths);
     }
 
     public void addDays(){
         listDays = new ArrayList<>();
-        for (int i = 0 ; i < getXAxisValuesOfDay().size();i++){
-            listDays.add(new CObject(getXAxisValuesOfDay().get(i)));
+        for (int i = 0 ; i < portfoliosData.getXAxisValuesOfDay().size();i++){
+            listDays.add(new CObject(portfoliosData.getXAxisValuesOfDay().get(i)));
         }
         view().onAddDays(listDays);
     }
 
     public void addQuarterly(){
         listQ = new ArrayList<>();
-        for (int i = 0 ; i < getXAxisValuesOfQuarterly().size();i++){
-            listQ.add(new CObject(getXAxisValuesOfQuarterly().get(i)));
+        for (int i = 0 ; i < portfoliosData.getXAxisValuesOfQuarterly().size();i++){
+            listQ.add(new CObject(portfoliosData.getXAxisValuesOfQuarterly().get(i)));
         }
         view().onAddQuarterly(listQ);
     }
 
     public void showGroupOfDays(int months){
-        final PortfoliosView view = view();
-        view.showLoading();
-        Observable.create(subscriber -> {
+        checkViewAttached();
+        view().showLoading();
             ArrayList<BarEntry> group1 = new ArrayList<>();
             ArrayList<BarEntry> group2 = new ArrayList<>();
             ArrayList<BarEntry> group3 = new ArrayList<>();
             Map<Integer,BarEntry>hashMapB1 = new TreeMap<Integer, BarEntry>();
             Map<Integer,BarEntry>hashMapB2 = new TreeMap<Integer, BarEntry>();
             Map<Integer,BarEntry>hashMapB3 = new TreeMap<Integer, BarEntry>();
-            for (int i = 0 ; i < getXAxisValuesOfDay().size();i++) {
-                for (CObject index : list) {
+            for (int i = 0 ; i < portfoliosData.getXAxisValuesOfDay().size();i++) {
+                for (CObject index : portfoliosData.getData()) {
                     for (CPortfolios in : index.navs) {
                         int month = in.monthOfYears;
                         int day = in.dayOfMonths;
@@ -272,31 +269,24 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
             dataSets.add(barDataSet2);
             dataSets.add(barDataSet3);
 
-            BarData data = new BarData(getXAxisValuesOfDay(), dataSets);
-            subscriber.onNext(data);
-            subscriber.onCompleted();
-        }).observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.computation())
-                .subscribe(data ->{
-                    view.onGetStatus(2);
-                    view.hideLoading();
-                    setBarData((BarData)data);
-                    view.onUpdatedChartBar((BarData)data);
-                });
+            portfoliosData.setBarData(new BarData(portfoliosData.getXAxisValuesOfDay(), dataSets));
+            view().onGetStatus(2);
+            view().hideLoading();
+            view().onUpdatedChartBar(portfoliosData.getBarData());
+
     }
 
     public void showGroupOfquarterly(){
-        final PortfoliosView view = view();
-        view.showLoading();
-        Observable.create(subscriber -> {
+        checkViewAttached();
+        view().showLoading();
             ArrayList<BarEntry> group1 = new ArrayList<>();
             ArrayList<BarEntry> group2 = new ArrayList<>();
             ArrayList<BarEntry> group3 = new ArrayList<>();
             Map<Integer,BarEntry>hashMapB1 = new TreeMap<Integer, BarEntry>();
             Map<Integer,BarEntry>hashMapB2 = new TreeMap<Integer, BarEntry>();
             Map<Integer,BarEntry>hashMapB3 = new TreeMap<Integer, BarEntry>();
-            for (int i = 0 ; i < getXAxisValuesOfQuarterly().size();i++) {
-                for (CObject index : list) {
+            for (int i = 0 ; i < portfoliosData.getXAxisValuesOfQuarterly().size();i++) {
+                for (CObject index : portfoliosData.getData()) {
                     for (CPortfolios in : index.navs) {
                         int month = in.monthOfYears;
                         float amount = Float.valueOf(in.amount) ;
@@ -443,82 +433,17 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
             dataSets.add(barDataSet1);
             dataSets.add(barDataSet2);
             dataSets.add(barDataSet3);
+            portfoliosData.setBarData(new BarData(portfoliosData.getXAxisValuesOfQuarterly(), dataSets));
+            view().onGetStatus(3);
+            view().hideLoading();
+            view().onUpdatedChartBar(portfoliosData.getBarData());
 
-            BarData data = new BarData(getXAxisValuesOfQuarterly(), dataSets);
-            subscriber.onNext(data);
-            subscriber.onCompleted();
-        }).observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.computation())
-                .subscribe(data ->{
-                    view.onGetStatus(3);
-                    view.hideLoading();
-                    setBarData((BarData)data);
-                    view.onUpdatedChartBar((BarData)data);
-                });
     }
 
-    public List<String> getXAxisValues() {
-        String[] mMonths = new String[]{
-                "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-        };
-        return Arrays.asList(mMonths);
-    }
-
-    public List<String> getXAxisValuesOfDay(){
-        String[] mDays = new String[]{
-                "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24","25", "26", "27", "28","29", "30", "31"
-        };
-        return Arrays.asList(mDays);
-    }
-
-    public List<String> getXAxisValuesOfQuarterly(){
-        String[] mDays = new String[]{
-                "Mar", "Jun", "Sep", "Dec"
-        };
-        return Arrays.asList(mDays);
-    }
-
-    public List<CObject> getData(){
-        return list ;
-    }
-
-    public void setData(List<CObject>list){
-        this.list = list ;
-    }
-
-    public List<CObject> getListMonths(){
-        return listMonths;
-    }
-    public void setListMonths(List<CObject>listMonths){
-        this.listMonths = listMonths ;
-    }
-
-    public List<CObject> getListDays(){
-        return listDays ;
-    }
-
-    public void setListDays(List<CObject>listDays){
-        this.listDays = listDays ;
-    }
-
-    public List<CObject> getListQ(){
-        return  listQ;
-    }
-
-    public void setListQ(List<CObject>listQ){
-        this.listQ = listQ ;
-    }
-
-    public BarData getBarData(){
-        return barData;
-    }
-
-    public void setBarData(BarData barData){
-        this.barData = barData ;
-    }
 
     public void onLoadingData(){
-        final PortfoliosView view = view();
+        checkViewAttached();
+        list= portfoliosData.getData();
         if (list != null) {
             int i = 0;
             for (CObject index : list) {
@@ -544,8 +469,7 @@ public class PortfoliosPresenter extends Presenter<PortfoliosView>{
                 }
                 i++;
             }
-            view.onAddDataSuccess(list);
+            view().onAddDataSuccess(list);
         }
     }
-
 }

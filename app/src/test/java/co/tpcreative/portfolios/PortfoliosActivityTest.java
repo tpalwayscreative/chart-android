@@ -1,116 +1,123 @@
 package co.tpcreative.portfolios;
+
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import co.tpcreative.portfolios.common.presenter.Presenter;
-import co.tpcreative.portfolios.model.CData;
 import co.tpcreative.portfolios.model.CObject;
 import co.tpcreative.portfolios.model.CPortfolios;
-import co.tpcreative.portfolios.ui.portfolios.activity.PortfoliosActivity;
+import co.tpcreative.portfolios.ui.portfolios.activity.PortfoliosData;
 import co.tpcreative.portfolios.ui.portfolios.activity.PortfoliosPresenter;
 import co.tpcreative.portfolios.ui.portfolios.activity.PortfoliosView;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
 @RunWith(MockitoJUnitRunner.class)
 public class PortfoliosActivityTest {
 
     @Mock
     private PortfoliosView view;
     @Mock
+    private PortfoliosData portfoliosData ;
     private PortfoliosPresenter presenter ;
 
 
     @Before
     public void setUp() throws Exception {
-        presenter = new PortfoliosPresenter(view);
+        presenter = new PortfoliosPresenter(portfoliosData);
         presenter.bindView(view);
-        MockitoAnnotations.initMocks(this);
-    }
-
-    @Test
-    public void testData() throws Exception {
-        when(presenter.getData()).thenReturn(list());
     }
 
     @Test
     public void testMonths() throws Exception {
-        when(presenter.getListMonths()).thenReturn(list());
-        when(presenter.getBarData()).thenReturn(simpleTest());
         presenter.showGroupOfMonths();
+        verify(view).showLoading();
+        when(portfoliosData.getXAxisValuesMonth()).thenReturn(getXAxisValuesMonth());
+        when(portfoliosData.getData()).thenReturn(mGetData());
+        verify(view).onGetStatus(1);
+        verify(view).hideLoading();
+        portfoliosData.setBarData((portfoliosData.getBarData()));
+        verify(view).onUpdatedChartBar(portfoliosData.getBarData());
     }
 
     @Test
     public void testDays() throws Exception {
-        when(presenter.getListDays()).thenReturn(list());
-        when(presenter.getBarData()).thenReturn(simpleTest());
         presenter.showGroupOfDays(1);
+        verify(view).showLoading();
+        when(portfoliosData.getXAxisValuesOfDay()).thenReturn(getXAxisValuesOfDay());
+        when(portfoliosData.getData()).thenReturn(mGetData());
+        verify(view).onGetStatus(2);
+        verify(view).hideLoading();
+        portfoliosData.setBarData((portfoliosData.getBarData()));
+        verify(view).onUpdatedChartBar(portfoliosData.getBarData());
     }
 
     @Test
     public void testQuarterly(){
-        when(presenter.getListQ()).thenReturn(list());
-        when(presenter.getBarData()).thenReturn(simpleTest());
         presenter.showGroupOfquarterly();
+        verify(view).showLoading();
+        when(portfoliosData.getXAxisValuesOfQuarterly()).thenReturn(getXAxisValuesOfQuarterly());
+        when(portfoliosData.getData()).thenReturn(mGetData());
+        verify(view).onGetStatus(3);
+        verify(view).hideLoading();
+        portfoliosData.setBarData(portfoliosData.getBarData());
+        verify(view).onUpdatedChartBar(portfoliosData.getBarData());
     }
 
-    public List<CObject> list(){
+    @Test
+    public void testLoadingData(){
+        presenter.onLoadingData();
+        verify(view).onAddDataSuccess(portfoliosData.getData());
+    }
+
+    public List<CObject> mGetData(){
 
         List<CObject> ls = new ArrayList<>();
         List<CPortfolios> lss = new ArrayList<>();
         lss.add(new CPortfolios("2017-01-02","11.23"));
         ls.add(new CObject("123",lss));
-
         lss.add(new CPortfolios("2017-01-02","11.23"));
         ls.add(new CObject("123",lss));
-
         lss.add(new CPortfolios("2017-02-02","11.23"));
         ls.add(new CObject("12",lss));
-
         lss.add(new CPortfolios("2017-02-02","11.23"));
         ls.add(new CObject("12",lss));
-
         return  ls ;
     }
 
-    public BarData simpleTest(){
+    public BarData mGetBarData(){
 
         ArrayList<BarEntry> group1 = new ArrayList<>();
         group1.add(new BarEntry(4f, 0));
         group1.add(new BarEntry(8f, 1));
         group1.add(new BarEntry(6f, 2));
         group1.add(new BarEntry(12f, 3));
-        group1.add(new BarEntry(18f, 4));
-        group1.add(new BarEntry(9f, 5));
+
 
         ArrayList<BarEntry> group2 = new ArrayList<>();
         group2.add(new BarEntry(6f, 0));
         group2.add(new BarEntry(7f, 1));
         group2.add(new BarEntry(8f, 2));
         group2.add(new BarEntry(12f, 3));
-        group2.add(new BarEntry(15f, 4));
-        group2.add(new BarEntry(10f, 5));
+
 
         ArrayList<BarEntry> group3 = new ArrayList<>();
         group3.add(new BarEntry(7f, 0));
         group3.add(new BarEntry(8f, 1));
         group3.add(new BarEntry(9f, 2));
         group3.add(new BarEntry(13f, 3));
-        group3.add(new BarEntry(16f, 4));
-        group3.add(new BarEntry(11f, 5));
+
 
         BarDataSet barDataSet1 = new BarDataSet(group1, "Group 1");
         //barDataSet1.setColor(Color.rgb(0, 155, 0));
@@ -126,19 +133,29 @@ public class PortfoliosActivityTest {
         dataSets.add(barDataSet1);
         dataSets.add(barDataSet2);
         dataSets.add(barDataSet3);
-        BarData data = new BarData(getXAxisValues(), dataSets);
+        BarData data = new BarData(getXAxisValuesOfQuarterly(), dataSets);
         return data ;
     }
 
-    private ArrayList<String> getXAxisValues() {
-        ArrayList<String> labels = new ArrayList<>();
-        labels.add("JAN");
-        labels.add("FEB");
-        labels.add("MAR");
-        labels.add("APR");
-        labels.add("MAY");
-        labels.add("JUN");
-        return labels;
+    public List<String> getXAxisValuesMonth() {
+        String[] mMonths = new String[]{
+                "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        };
+        return Arrays.asList(mMonths);
+    }
+
+    public List<String> getXAxisValuesOfQuarterly(){
+        String[] mDays = new String[]{
+                "Mar", "Jun", "Sep", "Dec"
+        };
+        return Arrays.asList(mDays);
+    }
+
+    public List<String> getXAxisValuesOfDay(){
+        String[] mDays = new String[]{
+                "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24","25", "26", "27", "28","29", "30", "31"
+        };
+        return Arrays.asList(mDays);
     }
 
 }

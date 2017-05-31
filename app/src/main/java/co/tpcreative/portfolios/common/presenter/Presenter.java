@@ -7,6 +7,8 @@ import android.view.View;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Observable;
+import rx.Single;
 import rx.subscriptions.CompositeSubscription;
 
 
@@ -52,5 +54,21 @@ public class Presenter<V> {
     public void unbindView() {
         unbindView(view);
     }
+
+    public boolean isViewAttached() {
+        return view != null;
+    }
+
+    public void checkViewAttached() {
+        if (!isViewAttached()) throw new MvpViewNotAttachedException();
+    }
+    private static class MvpViewNotAttachedException extends RuntimeException {
+        MvpViewNotAttachedException() {
+            super(
+                    "Please call Presenter.attachView(MvpView) before"
+                            + " requesting data to the Presenter");
+        }
+    }
+
 }
 
